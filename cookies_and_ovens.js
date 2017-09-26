@@ -15,21 +15,21 @@ class Kue {
   }
 }
 
-class KueKacang {
+class KueKacang extends Kue{
   constructor(namaKue) {
     super(namaKue)
     this.lama = 20;
   }
 }
 
-class KueCoklat {
+class KueCoklat extends Kue{
   constructor(namaKue) {
     super(namaKue)
     this.lama = 30;
   }
 }
 
-class KueKeju {
+class KueKeju extends Kue{
   constructor(namaKue) {
     super(namaKue);
     this.lama = 35;
