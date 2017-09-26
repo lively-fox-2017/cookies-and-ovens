@@ -1,0 +1,13 @@
+Q: What are essential classes?
+A: PastryCook, Oven, Cake, PeanutCake, ChocolateCake, CheeseCake
+
+Q: What attributes will each class have?
+A: PastryCook {_name, _doneCooking, _nowCooking}
+   Oven {_cook, _cake, _time, _currentTime}
+   Cake {_name, _done, _status, _max}
+   PeanutCake extends Cake {}
+   ChocolateCake extends Cake {}
+   CheeseCake extends Cake {}
+
+Q: Which classes will inherit from others?
+A: PeanutCake, ChocolateCake, CheeseCake
