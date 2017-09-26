@@ -9,8 +9,7 @@
 //
 // Your code here
 class CocholateCake{
-  constructor(name,cookingTime,status) {
-    this.name=name,
+  constructor(cookingTime,status) {
     this.cookingTime=cookingTime,
     this.status=this.cook(this.cookingTime);
   }
@@ -31,8 +30,7 @@ class CocholateCake{
 }
 
 class PeanutCake {
-  constructor(name,cookingTime,status) {
-    this.name=name,
+  constructor(cookingTime,status) {
     this.cookingTime=cookingTime,
     this.status=this.cook(this.cookingTime);
   }
@@ -52,8 +50,7 @@ class PeanutCake {
   }
 }
 class CheeseCake {
-  constructor(name,cookingTime,status) {
-    this.name=name,
+  constructor(cookingTime,status) {
     this.cookingTime=cookingTime,
     this.status=this.cook(this.cookingTime);
   }
@@ -76,15 +73,15 @@ class CheeseCake {
 class Ovens {
   static cook(name,time){
     if (name=='Cocholate Cake') {
-      let cook=new CocholateCake(name,time)
+      let cook=new CocholateCake(time)
       return `${name}, menit ke ${time} : ${cook.status}`
     } else
     if (name=='Peanut Cake') {
-      let cook=new PeanutCake(name,time)
+      let cook=new PeanutCake(time)
       return `${name}, menit ke ${time} : ${cook.status}`
     } else
     if (name=='Cheese Cake') {
-      let cook=new CheeseCake(name,time)
+      let cook=new CheeseCake(time)
       return `${name}, menit ke ${time} : ${cook.status}`
     } else {
       return `jenis kue yang dimasak tidak terdaftar`
