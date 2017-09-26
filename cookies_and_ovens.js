@@ -44,10 +44,10 @@ class OtherCookie extends Cookie{
 }
 
 class Ingredient {
-	constructor(input1, input2){
+	constructor(input1, input2, input3){
 		this.name = input1
 		this.amount = input2
-		this.has_sugar = false
+		this.has_sugar = input3
 	}
 }
 
@@ -66,19 +66,27 @@ class CookieFactory {
 			temp[j]=this.input[j].split(',')
 		}
 
+		//console.log(temp)
+
 		for(let k=0;k<this.input.length;k++){
 			a=0;
-			for(let i=1;i<temp.length;i++){
+			for(let i=1;i<temp[k].length;i++){
 		 		temp3=temp[k][i]
 		 		temp2=temp3.split(':')
-		 		temp4[a]=new Ingredient(temp2[0],temp2[1])
+
+		 		if(temp2[0]!='sugar'){
+		 			temp2[2]=false
+		 		}else{
+		 			temp2[2]=true
+		 		}
+		 		temp4[a]=new Ingredient(temp2[0],temp2[1],temp2[2])
 		 		a++ 
 			}
 			temp1[k]=temp4
 			temp4=[]
 		}
 
-		console.log(temp1[0])
+		//console.log(temp1[0])
 
 		
 		for(let i = 0;i<this.input.length;i++){
@@ -95,6 +103,30 @@ class CookieFactory {
 
 		return this
 	}
+
+	static cookieRecommendation(day, cake){
+
+		let temp=[]
+		let a=0
+		let b=0
+
+		for(let i=0;i<cake.output.length;i++){
+			for(let j=0;j<cake.output[i].ingredients.length;j++){
+				if(cake.output[i].ingredients[j].has_sugar === true){
+					a++
+				}
+			}
+			if(a===0){
+				temp[b]=cake.output[i].name
+				b++
+			}else{
+				a=0
+			}
+		}
+
+		return temp
+	}
+
 }
 var fs = require('fs')
 // var input = fs.readFileSync('cookies.txt').toString().split('\n')
@@ -104,3 +136,5 @@ var input = fs.readFileSync('ingredient.txt').toString().split('\n')
 const util = require('util')
 let batch_of_cookies = CookieFactory.create(input)
 console.log(util.inspect(batch_of_cookies, false, null))
+let sugarfree = CookieFactory.cookieRecommendation('senin', batch_of_cookies)
+console.log(sugarfree)
