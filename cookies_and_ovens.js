@@ -12,6 +12,22 @@
 class Kue {
   constructor(namaKue) {
     this.nama = namaKue;
+    this.lama = 0;
+    this.status = 'mentah';
+  }
+  masak(menit){
+    if(this.lama < menit){
+      this.status = 'hangus';
+    }
+    else if(this.lama === menit){
+      this.status = 'matang';
+    }
+    else if(this.lama - 10 < menit){
+      this.status = 'hampir matang';
+    }
+    else{
+      this.status = 'mentah';
+    }
   }
 }
 
@@ -39,17 +55,22 @@ class KueKeju extends Kue{
 class TukangMasak {
   masakKue(namaKue, lamaMasak) {
     var obj = null;
-    if(namaKue.indexOf('Kacang') > - 1){
-      var newKue = KueKacang(namaKue);
+    if(namaKue.toLowerCase().indexOf('kacang') > - 1){
+      var newKue = new KueKacang(namaKue);
       obj = newKue;
     }
     else if(namaKue.indexOf('Coklat') > -1){
-      var newKue = KueCoklat(namaKue);
+      var newKue = new KueCoklat(namaKue);
       obj = newKue;
     }
     else{
-      var newKue = KueKeju(namaKue);
+      var newKue = new KueKeju(namaKue);
       obj = newKue;
     }
+    obj.masak(lamaMasak);
+    return obj.nama + ", " + obj.status;
   }
 }
+
+var koki = new TukangMasak();
+console.log(koki.masakKue('Kue Kacang',25));
