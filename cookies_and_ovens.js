@@ -8,7 +8,7 @@
 //
 //
 // Your code here
-
+//
 class Kue {
   constructor(namaKue) {
     this.nama = namaKue;
