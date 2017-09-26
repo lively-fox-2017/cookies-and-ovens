@@ -68,9 +68,14 @@ class TukangMasak {
       obj = newKue;
     }
     obj.masak(lamaMasak);
-    return obj.nama + ", " + obj.status;
+    return obj;
   }
 }
 
 var koki = new TukangMasak();
-console.log(koki.masakKue('Kue Kacang',25));
+var menit = 0;
+while(menit < 30){
+  var hasilMasak = koki.masakKue('kue kacang panggang', menit);
+  console.log(hasilMasak.nama + ", menit ke " +menit+" : "+hasilMasak.status);
+  menit += 5;
+}
