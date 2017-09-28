@@ -1,7 +1,9 @@
 // Answer These Questions:
 //
 // - What are essential classes?
+// - Class Cookie sebagai parent class dan Class CookieFactory yang merefactor seluruh proses
 // - What attributes will each class have?
+// - nama kue dan lamanya kue dimasak
 // - What interface will each class provide?
 // - How will the classes interact with each other?
 // - Which classes will inherit from others, if any?
@@ -11,130 +13,73 @@
 "use strict"
 
 class Cookie {
-	constructor(name,ingredient) {
-		this.name = name
-		this.status = 'mentah'
-		this.ingredients = ingredient
-	}
-
-	bake() {
-		this.status = 'selesai dimasak'
+	constructor() {
+		this.name = 'Kue'
+		this.bake_time = 0
+		this.status = ['mentah', 'hampir matang', 'selesai', 'hangus']
 	}
 }
 
-class PeanutButter extends Cookie {
-	constructor(name, ingredient) {
-		super(name, ingredient)
-		this.peanut_count = 100
+class KueCoklat extends Cookie {
+	constructor() {
+		super()
+		this.time = 20 
+		this.name = 'Kue Coklat'
 	}
 }
 
-class ChocolateChip extends Cookie {
-	constructor(name, ingredient){
-		super(name, ingredient) 
-		this.choc_chip_count = 200
+class KueKacang extends Cookie {
+	constructor(){
+		super() 
+		this.name = 'Kue Kacang'
+		this.time = 30
 	}
 }
 
-class OtherCookie extends Cookie{
-	constructor(name, ingredient){
-		super(name, ingredient) 
-		this.choc_chip_count = 150
+class KueKeju extends Cookie{
+	constructor(){
+		super() 
+		this.name = 'Kue Keju'
+		this.time = 35
 	}	
 }
 
-class Ingredient {
-	constructor(input1, input2, input3){
-		this.name = input1
-		this.amount = input2
-		this.has_sugar = input3
-	}
-}
-
 class CookieFactory {
-	static create(option){
-		this.input = option
-		this.output = []
-		let temp = []
-		let temp1 = []
-		let temp2 = []
-		let temp3 =''
-		let temp4 = []
-		let a = 0
 
-		for(let j=0;j<this.input.length;j++){
-			temp[j]=this.input[j].split(',')
-		}
-
-		//console.log(temp)
-
-		for(let k=0;k<this.input.length;k++){
-			a=0;
-			for(let i=1;i<temp[k].length;i++){
-		 		temp3=temp[k][i]
-		 		temp2=temp3.split(':')
-
-		 		if(temp2[0]!='sugar'){
-		 			temp2[2]=false
-		 		}else{
-		 			temp2[2]=true
-		 		}
-		 		temp4[a]=new Ingredient(temp2[0],temp2[1],temp2[2])
-		 		a++ 
-			}
-			temp1[k]=temp4
-			temp4=[]
-		}
-
-		//console.log(temp1[0])
-
+	static cakeBake(input, cake){
 		
-		for(let i = 0;i<this.input.length;i++){
-			if(temp[i][0]==='peanut butter'){
-				this.output[i] = new PeanutButter(temp[i][0],temp1[i])
-			}else
-				if(temp[i][0]==='chocolate chip'){
-					this.output[i] = new ChocolateChip(temp[i][0],temp1[i])
-				}else{
-					this.output[i] = new OtherCookie(temp[i][0],temp1[i])
-				}
+		let i = 0
+		let a = ''
+		let b = 0
+
+		if(cake === 'Kue Kacang'){
+			a = new KueKacang()
 		}
 
-
-		return this
-	}
-
-	static cookieRecommendation(day, cake){
-
-		let temp=[]
-		let a=0
-		let b=0
-
-		for(let i=0;i<cake.output.length;i++){
-			for(let j=0;j<cake.output[i].ingredients.length;j++){
-				if(cake.output[i].ingredients[j].has_sugar === true){
-					a++
-				}
-			}
-			if(a===0){
-				temp[b]=cake.output[i].name
-				b++
-			}else{
-				a=0
-			}
+		if(cake === 'Kue Keju'){
+			a = new KueKeju()
 		}
 
-		return temp
-	}
+		if(cake === 'Kue Coklat'){
+			a = new KueKacang()
+		}
 
+				while(i<input){
+					console.log(a.name +', menit ke '+i+' : '+a.status[b])
+				
+					if(i>=15 && i<a.time){
+					b=1
+					}else
+						if(i === a.time){
+							b=2
+						}else
+							if(i > a.time){
+								b=3
+							}
+					i+=5
+				}
+	}
 }
-var fs = require('fs')
-// var input = fs.readFileSync('cookies.txt').toString().split('\n')
-var input = fs.readFileSync('ingredient.txt').toString().split('\n')
 
-
-const util = require('util')
-let batch_of_cookies = CookieFactory.create(input)
-console.log(util.inspect(batch_of_cookies, false, null))
-let sugarfree = CookieFactory.cookieRecommendation('senin', batch_of_cookies)
-console.log(sugarfree)
+let tes = CookieFactory.cakeBake(50, 'Kue Kacang')
+console.log(tes)
